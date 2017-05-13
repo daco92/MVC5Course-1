@@ -135,14 +135,13 @@ namespace MVC5Course.Controllers
             return RedirectToAction("Index");
         }
         
-        public ActionResult ListProducts(FormCollection form)
+        public ActionResult ListProducts(string q)
         {
             var data = repo.GetProduct列表頁所有資料(true);
 
-            if (!String.IsNullOrEmpty(form["q"]))
+            if (!String.IsNullOrEmpty(q))
             {
-                var keyword = form["q"];
-                data = data.Where(p => p.ProductName.Contains(keyword));
+                data = data.Where(p => p.ProductName.Contains(q));
             }
 
             ViewData.Model = data
