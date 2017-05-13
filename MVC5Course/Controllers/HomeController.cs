@@ -39,6 +39,14 @@ namespace MVC5Course.Controllers
             }
         }
 
+        public ActionResult SomeAction()
+        {
+            //Response.Write("<script>alert('建立成功!'); location.href='/';</script>");
+            //return "<script>alert('建立成功!'); location.href='/';</script>";
+            //return Content("<script>alert('建立成功!'); location.href='/';</script>");
+            return PartialView("SuccessRedirect", "/");
+        }
+
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
