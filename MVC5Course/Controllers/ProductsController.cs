@@ -137,13 +137,22 @@ namespace MVC5Course.Controllers
 
         public ActionResult ListProducts(ProductListSearchVM searchCondition)
         {
+            if (searchCondition == null)
+            {
+                ViewBag.searchCondition = new ProductListSearchVM()
+                {
+                    Stock_S = 0,
+                    Stock_E = 9999
+                };
+            }
+
             GetProductListBySearch(searchCondition);
 
             return View();
         }
 
         [HttpPost]
-        public ActionResult BatchUpdate(ProductListSearchVM searchCondition, ProductBatchUpdateVM[] items)
+        public ActionResult ListProducts(ProductListSearchVM searchCondition, ProductBatchUpdateVM[] items)
         {
             if (ModelState.IsValid)
             {
@@ -157,7 +166,7 @@ namespace MVC5Course.Controllers
                 db.Configuration.ValidateOnSaveEnabled = false;
                 db.SaveChanges();
 
-                return RedirectToAction("ListProducts");
+                return RedirectToAction("ListProducts", searchCondition);
             }
 
             GetProductListBySearch(searchCondition);
@@ -184,6 +193,8 @@ namespace MVC5Course.Controllers
                     Price = p.Price,
                     Stock = p.Stock
                 });
+
+            ViewBag.searchCondition = searchCondition;
         }
 
         public ActionResult CreateProduct()
