@@ -22,7 +22,12 @@ namespace MVC5Course.Controllers
         {
             var data = repo.GetProduct列表頁所有資料(Active, showAll: false);
 
-            return View(data);
+            ViewData.Model = data;
+
+            ViewData["ppp"] = data;
+            ViewBag.qqq = data;
+
+            return View();
         }
 
         // GET: Products/Details/5
@@ -155,6 +160,8 @@ namespace MVC5Course.Controllers
             if (ModelState.IsValid)
             {
                 // TODO: 儲存資料進資料庫
+
+                TempData["CreateProduct_Result"] = "商品新增成功";
 
                 return RedirectToAction("ListProducts");
             }
