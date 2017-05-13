@@ -16,8 +16,10 @@ namespace MVC5Course.Models.ViewModels
         [MinLength(5)]
         public string ProductName { get; set; }
         [Required]
+        [Range(0, 9999)]
         public Nullable<decimal> Price { get; set; }
         [Required]
+        [Range(0, 9999)]
         public Nullable<decimal> Stock { get; set; }
     }
 }
