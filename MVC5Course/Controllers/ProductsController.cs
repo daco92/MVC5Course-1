@@ -20,9 +20,8 @@ namespace MVC5Course.Controllers
         // GET: Products
         public ActionResult Index(bool Active = true)
         {
-            var data = repo.All()
-                .Where(p => p.Active.HasValue && p.Active.Value == Active)
-                .OrderByDescending(p => p.ProductId).Take(10);
+            var data = repo.GetProduct列表頁所有資料(Active, showAll: true);
+
             return View(data);
         }
 
