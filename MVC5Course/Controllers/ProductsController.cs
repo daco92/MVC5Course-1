@@ -117,6 +117,15 @@ namespace MVC5Course.Controllers
             Product product = repo.Get單筆資料ByProductId(id);
 
             repo.Delete(product);
+
+            //var repoOrderLines = 
+            //    RepositoryHelper.GetOrderLineRepository(repo.UnitOfWork);
+
+            //foreach (var item in product.OrderLine)
+            //{
+            //    repoOrderLines.Delete(item);
+            //}
+
             repo.UnitOfWork.Commit();
             return RedirectToAction("Index");
         }

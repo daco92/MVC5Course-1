@@ -26,8 +26,8 @@ namespace MVC5Course.Models
 		{
 			return ObjectSet.AsQueryable();
 		}
-
-		public IQueryable<T> Where(Expression<Func<T, bool>> expression)
+        
+        public IQueryable<T> Where(Expression<Func<T, bool>> expression)
 		{
 			return ObjectSet.Where(expression);
 		}
