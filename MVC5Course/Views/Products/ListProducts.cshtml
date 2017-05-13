@@ -20,7 +20,7 @@
     <button>搜尋</button>
 </form>
 
-@using (Html.BeginForm("BatchUpdate"))
+@using (Html.BeginForm("BatchUpdate", "Products"))
 {
     <table class="table">
         <tr>
@@ -37,22 +37,24 @@
                 @Html.DisplayNameFor(model => model.Stock)
             </th>
         </tr>
-
-        @foreach (var item in Model)
+        @{
+            var items = Model.ToArray();
+        }
+        @for(var i =0; i < items.Length;i++)
         {
             <tr>
-                @Html.HiddenFor(modelItem => item.ProductId)
+                @Html.HiddenFor(modelItem => items[i].ProductId)
                 <td>
-                    @Html.DisplayFor(modelItem => item.ProductId)
+                    @Html.DisplayFor(modelItem => items[i].ProductId)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.ProductName)
+                    @Html.DisplayFor(modelItem => items[i].ProductName)
                 </td>
                 <td>
-                    @Html.EditorFor(modelItem => item.Price)
+                    @Html.EditorFor(modelItem => items[i].Price)
                 </td>
                 <td>
-                    @Html.EditorFor(modelItem => item.Stock)
+                    @Html.EditorFor(modelItem => items[i].Stock)
                 </td>
             </tr>
         }

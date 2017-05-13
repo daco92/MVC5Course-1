@@ -143,7 +143,7 @@ namespace MVC5Course.Controllers
         }
 
         [HttpPost]
-        public ActionResult BatchUpdate(ProductListSearchVM searchCondition, List<ProductBatchUpdateVM> items)
+        public ActionResult BatchUpdate(ProductListSearchVM searchCondition, ProductBatchUpdateVM[] items)
         {
             if (ModelState.IsValid)
             {
@@ -153,9 +153,11 @@ namespace MVC5Course.Controllers
                     prod.Price = item.Price;
                     prod.Stock = item.Stock;
                 }
+
+                db.Configuration.ValidateOnSaveEnabled = false;
                 db.SaveChanges();
 
-                return RedirectToAction("ProductList");
+                return RedirectToAction("ListProducts");
             }
 
             GetProductListBySearch(searchCondition);
