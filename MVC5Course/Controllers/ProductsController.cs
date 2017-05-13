@@ -135,9 +135,17 @@ namespace MVC5Course.Controllers
             return RedirectToAction("Index");
         }
         
-        public ActionResult ListProducts()
+        public ActionResult ListProducts(FormCollection form)
         {
-            var data = repo.GetProduct列表頁所有資料(true)
+            var data = repo.GetProduct列表頁所有資料(true);
+
+            if (!String.IsNullOrEmpty(form["q"]))
+            {
+                var keyword = form["q"];
+                data = data.Where(p => p.ProductName.Contains(keyword));
+            }
+
+            ViewData.Model = data
                 .Select(p => new ProductLiteVM()
                 {
                     ProductId = p.ProductId,
@@ -146,7 +154,7 @@ namespace MVC5Course.Controllers
                     Stock = p.Stock
                 });
 
-            return View(data);
+            return View();
         }
 
         public ActionResult CreateProduct()
