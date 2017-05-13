@@ -58,5 +58,10 @@ namespace MVC5Course.Controllers
         {
             return View();
         }
+
+        public ActionResult GetFile()
+        {
+            return File(Server.MapPath("~/Content/WannaCry.png"), "image/png", "NewName.png");
+        }
     }
 }
