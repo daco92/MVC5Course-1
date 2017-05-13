@@ -137,17 +137,42 @@ namespace MVC5Course.Controllers
 
         public ActionResult ListProducts(ProductListSearchVM searchCondition)
         {
-            var data = repo.GetProduct列表頁所有資料(true);
+            GetProductListBySearch(searchCondition);
 
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult BatchUpdate(ProductListSearchVM searchCondition, List<ProductBatchUpdateVM> items)
+        {
             if (ModelState.IsValid)
             {
-                if (!String.IsNullOrEmpty(searchCondition.q))
+                foreach (var item in items)
                 {
-                    data = data.Where(p => p.ProductName.Contains(searchCondition.q));
+                    var prod = db.Product.Find(item.ProductId);
+                    prod.Price = item.Price;
+                    prod.Stock = item.Stock;
                 }
+                db.SaveChanges();
 
-                data = data.Where(p => p.Stock > searchCondition.Stock_S && p.Stock < searchCondition.Stock_E);
+                return RedirectToAction("ProductList");
             }
+
+            GetProductListBySearch(searchCondition);
+
+            return View("ListProducts");
+        }
+
+        private void GetProductListBySearch(ProductListSearchVM searchCondition)
+        {
+            var data = repo.GetProduct列表頁所有資料(true);
+
+            if (!String.IsNullOrEmpty(searchCondition.q))
+            {
+                data = data.Where(p => p.ProductName.Contains(searchCondition.q));
+            }
+
+            data = data.Where(p => p.Stock > searchCondition.Stock_S && p.Stock < searchCondition.Stock_E);
 
             ViewData.Model = data
                 .Select(p => new ProductLiteVM()
@@ -157,8 +182,6 @@ namespace MVC5Course.Controllers
                     Price = p.Price,
                     Stock = p.Stock
                 });
-
-            return View();
         }
 
         public ActionResult CreateProduct()

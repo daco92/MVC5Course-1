@@ -20,37 +20,43 @@
     <button>搜尋</button>
 </form>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Stock)
-        </th>
-    </tr>
+@using (Html.BeginForm("BatchUpdate"))
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Stock)
+            </th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Stock)
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                @Html.HiddenFor(modelItem => item.ProductId)
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ProductName)
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => item.Stock)
+                </td>
+            </tr>
+        }
+    </table>
 
-</table>
+    <button>執行批次更新</button>
+}   
