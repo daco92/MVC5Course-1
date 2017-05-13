@@ -63,5 +63,13 @@ namespace MVC5Course.Controllers
         {
             return File(Server.MapPath("~/Content/WannaCry.png"), "image/png", "NewName.png");
         }
+
+        public ActionResult GetJson()
+        {
+            db.Configuration.LazyLoadingEnabled = false;
+
+            return Json(db.Product.Take(5),
+                JsonRequestBehavior.AllowGet);
+        }
     }
 }
