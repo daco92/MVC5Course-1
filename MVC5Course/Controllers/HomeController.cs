@@ -13,6 +13,11 @@ namespace MVC5Course.Controllers
             return View();
         }
 
+        public ActionResult Unknown()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
