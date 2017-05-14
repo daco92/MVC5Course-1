@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVC5Course.ActionFilter;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -18,9 +19,11 @@ namespace MVC5Course.Controllers
             return View();
         }
 
+        [SharedViewBag]
+        [LocalOnly]
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            //ViewBag.Message = "Your application description page.";
 
             return View();
         }
